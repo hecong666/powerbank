@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.bicyclesharing.dao.PowerBankDao">
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="PowerBank">
+    select *
+    from power_bank
+    where pid = #{pid,jdbcType=INTEGER}
+  </select>
+ 
+  
+  <insert id="insert" parameterType="PowerBank">
+    insert into power_bank (pid, last_time, statement
+      )
+    values (#{pid,jdbcType=INTEGER}, #{lastTime,jdbcType=TIMESTAMP}, #{statement,jdbcType=INTEGER}
+      )
+  </insert>
+ 
+  <update id="updateByPrimaryKey" parameterType="PowerBank">
+    update power_bank
+    set last_time = #{lastTime,jdbcType=TIMESTAMP},
+      statement = #{statement,jdbcType=INTEGER}
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+  
+ 
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from power_bank
+    where pid = #{pid,jdbcType=INTEGER}
+  </delete>
+ 
+  <select id="selectAllPowerBank" resultType="PowerBank">
+  	select * from power_bank
+  </select>
+</mapper>

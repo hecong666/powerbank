@@ -41,8 +41,10 @@ public class PowerBankController {
     public String listShow(Map<String, Object> requestMap, @RequestParam("page") Integer page) {
         requestMap.put("nav", "bicycle");
         ArrayList<PowerBank> powerBanks = (ArrayList<PowerBank>) redisTemplate.opsForValue().get("powerBanks");
-        	if(powerBanks == null){
+        	System.out.println((ArrayList<PowerBank>) redisTemplate.opsForValue().get("powerBanks"));
+        if(powerBanks == null){
         powerBanks = (ArrayList<PowerBank>) powerbankService.selectAll();
+       
         redisTemplate.opsForValue().set("powerBanks", powerBanks);
         	}
         	requestMap.put("powerBanks", powerBanks);

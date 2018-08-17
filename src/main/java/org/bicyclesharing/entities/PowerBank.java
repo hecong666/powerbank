@@ -1,8 +1,9 @@
 package org.bicyclesharing.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class PowerBank {
+public class PowerBank implements Serializable{
     private Integer pid;
 
     private Date lastTime;

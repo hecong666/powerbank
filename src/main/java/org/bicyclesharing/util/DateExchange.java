@@ -6,13 +6,13 @@ import java.util.Date;
 
 /**
  * java里面的时间戳精确到毫秒,而Linux精确到秒,所以两者间的转换需要乘除1000
- * Created by HuiJa on 2017/8/14.
+ *
  */
 public class DateExchange {
     /**
      * 时间转换成时间戳
      *
-     * @param s String类型时间(2017-8-14 14:54:22)
+     * @param s
      *          (Date对象的getTime()方法是获取时间戳的)
      * @return 时间戳
      * @throws ParseException

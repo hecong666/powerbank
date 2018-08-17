@@ -1,5 +1,6 @@
 package org.bicyclesharing.web.Controller;
 
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
@@ -119,7 +120,10 @@ public class PowerBankController {
        PowerBank p = new PowerBank();
        
       p.setStatement(0);
+    	p.setDumpEnergy(100);
     	
+    	
+    	//p.setLastTime();
       powerbankService.insertPowerBank(p);
         String view = "redirect:/admin-bicycle-list-show?page=1";
         return view;
@@ -132,6 +136,7 @@ public class PowerBankController {
      */
     @RequestMapping(value = "admin-bicycle-editbicycle-show/{id}", method = RequestMethod.GET)
     public String editBicycleShow(@PathVariable("id") Integer id, Map<String, Object> requestMap) {
+    	
         PowerBank powerBank = powerbankService.selectPowerBankById(id);
         requestMap.put("powerBank", powerBank);
         return "bicycle/bicycle_edit";
@@ -148,5 +153,5 @@ public class PowerBankController {
     	powerbankService.deletePowerBankById(id);
         return "redirect:/admin-bicycle-list-show?page=1";
     }
-
+    
 }

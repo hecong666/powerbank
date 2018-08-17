@@ -65,6 +65,7 @@
                                         <th>充电宝编号</th>
                                         
                                         <th>最终归还时间</th>
+                                        <th>电量</th>
                                         <th>状态</th>
                                         <th>操作</th>
                                     </tr>
@@ -75,7 +76,8 @@
                                             <td class="am-text-middle">${powerBank.pid}</td>
                                            
                                             <td class="am-text-middle"><fmt:formatDate value="${powerBank.lastTime}" type="both"/></td>
-                                            <td class="am-text-middle">${bicycles.bicycleStatement}</td>
+                                             <td class="am-text-middle">${powerBank.dumpEnergy}</td>
+                                            <td class="am-text-middle">${powerBank.statement}</td>
                                             <td class="am-text-middle">
                                                 <div class="tpl-table-black-operation">
                                                     <a href="${pageContext.request.contextPath }/admin-bicycle-editbicycle-show/${powerBank.pid }">

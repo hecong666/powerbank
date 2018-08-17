@@ -2,6 +2,7 @@ package org.bicyclesharing.dao;
 
 import org.bicyclesharing.entities.User;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -82,4 +83,15 @@ public interface UserDao {
      * @return
      */
     List<User> selectUserByCash(Integer userCash);
+    
+    /**
+     * 11.查询用户余额
+     * 
+     * */
+    double selectUserAcountByUserId(Integer uid);
+    
+    /**
+     * 12.充值余额
+     * */
+    int addUserAccountByUserId(double account,Integer uid);
 }

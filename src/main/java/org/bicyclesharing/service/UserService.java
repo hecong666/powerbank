@@ -1,5 +1,6 @@
 package org.bicyclesharing.service;
 
+import org.apache.ibatis.annotations.Param;
 import org.bicyclesharing.entities.User;
 
 import java.math.BigDecimal;
@@ -83,4 +84,15 @@ public interface UserService {
      * @param userId
      */
     void changeCashTwo(Integer userId);
+    
+    /**
+     * 查询用户余额
+     * */
+    double selectUserAccountByUserId(@Param("uid") Integer uid);
+    
+    
+    /**
+     * 充值用户余额
+     * */
+    boolean addUserAccountByUserId(double account,Integer uid);
 }

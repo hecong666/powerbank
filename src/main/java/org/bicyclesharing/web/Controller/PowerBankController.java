@@ -9,12 +9,17 @@ import org.bicyclesharing.entities.PowerBank;
 import org.bicyclesharing.service.BicycleService;
 import org.bicyclesharing.service.PowerBankService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
+//redisTemplate.opsForValue();//操作字符串
+////redisTemplate.opsForHash();//操作hash
+//redisTemplate.opsForList();//操作list
+//redisTemplate.opsForSet();//操作set
+//redisTemplate.opsForZSet();//操作有序set
 /**
  * Created by HuiJa on 2017/7/28.
  */
@@ -24,6 +29,8 @@ public class PowerBankController {
     private BicycleService bicycleService;
     @Autowired
     private PowerBankService powerbankService;
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
 
     /**
      * 1.单车列表显示
@@ -33,9 +40,12 @@ public class PowerBankController {
     @RequestMapping(value = "admin-bicycle-list-show", method = RequestMethod.GET)
     public String listShow(Map<String, Object> requestMap, @RequestParam("page") Integer page) {
         requestMap.put("nav", "bicycle");
-        ArrayList<PowerBank> powerBanks = (ArrayList<PowerBank>) powerbankService.selectAll();
-        requestMap.put("powerBanks", powerBanks);
-
+        ArrayList<PowerBank> powerBanks = (ArrayList<PowerBank>) redisTemplate.opsForValue().get("powerBanks");
+        	if(powerBanks == null){
+        powerBanks = (ArrayList<PowerBank>) powerbankService.selectAll();
+        redisTemplate.opsForValue().set("powerBanks", powerBanks);
+        	}
+        	requestMap.put("powerBanks", powerBanks);
         int pageCount = powerBanks.size();  //数据条数
         int pageSize = 20;  //分页条数
         int pageMax = pageCount / pageSize;  //最大页数

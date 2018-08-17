@@ -11,7 +11,15 @@ http://www.springframework.org/schema/beans/spring-beans.xsd     http://www.spri
 
     <!--2.静态资源默认servlet配置-->
     <mvc:default-servlet-handler/>
-
+     <!-- rest json related... start -->
+  <bean id="mappingJacksonHttpMessageConverter"
+        class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>application/json;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
     <!--3:配置jsp 显示ViewResolver(设置url显示前缀后缀)-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>

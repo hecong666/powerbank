@@ -58,4 +58,11 @@
         FROM user
         WHERE user_cash = #{userCash}
     </select>
+    <!--11.查询用户余额-->
+    <select id="selectUserAcountByUserId">
+        select user_account from user where user_id = #{uid}
+    </select>
+    <update id="addUserAccountByUserId" parameterType="Double">
+    	update set user_account = #{account} from user where user_id = #{uid}
+    </update>
 </mapper>

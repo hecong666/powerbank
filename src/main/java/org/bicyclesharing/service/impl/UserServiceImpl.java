@@ -5,6 +5,7 @@ import org.bicyclesharing.entities.User;
 import org.bicyclesharing.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -116,5 +117,26 @@ public class UserServiceImpl implements UserService {
         user.setUserCash(0);
         userDao.updateUser(user);
     }
+
+	@Override
+	public double selectUserAccountByUserId(Integer uid) {
+		// TODO Auto-generated method stub
+		return userDao.selectUserAcountByUserId(uid);
+		
+	}
+
+	@Override
+	@Transactional
+	public boolean addUserAccountByUserId(double account, Integer uid) {
+		// TODO Auto-generated method stub
+		double oldAccount = userDao.selectUserAcountByUserId(uid);
+		BigDecimal b1 = new BigDecimal(oldAccount);
+		BigDecimal b2 = new BigDecimal(account);
+		b1.add(b2);
+		int i = userDao.addUserAccountByUserId(b1.doubleValue(), uid);
+		if(i <= 0)
+		return false;
+		return true;
+	}
 
 }

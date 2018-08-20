@@ -92,6 +92,7 @@ public class PowerBankController {
     @RequestMapping(value = "admin-bicycle-searchbicycle-show", method = RequestMethod.GET)
     public String searchBicycleShow(Map<String, Object> requestMap, @RequestParam("statement") Integer statement) {
         requestMap.put("nav", "powerBank-list");
+        
         ArrayList<Bicycle> bicycles = (ArrayList<Bicycle>) bicycleService.getBicycleByStatement(statement);
         requestMap.put("pageBicycles", bicycles);
         return "bicycle/bicycle_list";

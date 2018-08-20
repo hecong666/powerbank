@@ -10,9 +10,9 @@
  
   
   <insert id="insert" parameterType="PowerBank">
-    insert into power_bank (pid, last_time, statement
+    insert into power_bank (pid, last_time, statement,dump_energy
       )
-    values (#{pid,jdbcType=INTEGER}, #{lastTime,jdbcType=TIMESTAMP}, #{statement,jdbcType=INTEGER}
+    values (#{pid,jdbcType=INTEGER}, #{lastTime,jdbcType=TIMESTAMP}, #{statement,jdbcType=INTEGER},#{dumpEnergy}
       )
   </insert>
  

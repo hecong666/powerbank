@@ -1,15 +1,32 @@
 package org.bicyclesharing.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class PowerBank {
-    private Integer pid;
+
+
+public class PowerBank implements Serializable{
+
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer pid;
 
     private Date lastTime;
-
+    private int dumpEnergy;
     private Integer statement;
 
-    public Integer getPid() {
+    public int getDumpEnergy() {
+		return dumpEnergy;
+	}
+
+	public void setDumpEnergy(int dumpEnergy) {
+		this.dumpEnergy = dumpEnergy;
+	}
+
+	public Integer getPid() {
         return pid;
     }
 

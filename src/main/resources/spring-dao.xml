@@ -6,7 +6,7 @@
 http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <!--配置整合mybatis过程-->
     <!-- 1.配置数据源-->
-    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <context:property-placeholder location="classpath:jdbc.properties,classpath:redis.properties"/>
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <!-- 基础属性-->
         <property name="driverClassName" value="${jdbc.driver}"/>
@@ -15,6 +15,9 @@ http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springfr
         <property name="password" value="${jdbc.password}"/>
     </bean>
 
+   
+   
+    
     <!--2.配置SqlSessionFactory对象-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!--注入数据库连接池-->

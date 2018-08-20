@@ -117,12 +117,11 @@ public class PowerBankController {
      * @return admin/bicycle_list.jsp
      */
     @RequestMapping(value = "admin-bicycle-addbicycle-execute", method = RequestMethod.POST)
-    public String addBicycleExcute(@RequestParam("bicycleCurrentX") Double bicycleCurrentX, @RequestParam("bicycleCurrentY") Double bicycleCurrentY, @RequestParam("bicycleStatement") Integer bicycleStatement, @RequestParam("n") Integer n) {
+    public String addBicycleExcute(@RequestParam("bicycleStatement") Integer bicycleStatement, @RequestParam("n") Integer n) {
        PowerBank p = new PowerBank();
        
       p.setStatement(0);
     	p.setDumpEnergy(100);
-    	
     	
     	//p.setLastTime();
       powerbankService.insertPowerBank(p);

@@ -11,7 +11,7 @@
 <html>
 
 <head>
-    <title>WOFI单车后台管理</title>
+    <title>WOFI充电宝后台管理</title>
     <%@include file="../common/head.jsp" %>
     <!--地图引入,希望能自己去申请一个key(免费),百度高德地图api-->
     <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
@@ -56,7 +56,7 @@
                                     <br>
                                     当前使用中车辆: ${requestScope.bicycleCountUsing }
                                     <br>
-                                    绿色车辆数: ${requestScope.bicycleCountGreen}|红色车辆数: ${requestScope.bicycleCountRed}
+                                  
                                     <!-- <button class="widget-fluctuation-tpl-btn"><i class="am-icon-calendar"></i>更多记录</button> -->
                                 </div>
                             </div>
@@ -96,7 +96,7 @@
                             </div>
                             <div class="widget-statistic-description">
                                 <a href="${pageContext.request.contextPath }/admin-bicycle-list-show?page=1"
-                                   style="color:#ded5e7;">点击查看单车列表与详细单车信息</a>
+                                   style="color:#ded5e7;">点击查看充电宝列表与详细充电宝信息</a>
                             </div>
                             <span class="widget-statistic-icon am-icon-bicycle"></span>
                         </div>

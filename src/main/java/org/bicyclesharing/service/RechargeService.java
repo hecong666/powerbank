@@ -19,7 +19,7 @@ public interface RechargeService {
      * @param rechargeTime
      * @return
      */
-    boolean addRecharge(Integer userId, BigDecimal rechargeAmount, BigDecimal remaining, Date rechargeTime);
+    boolean addRecharge(Recharge recharge);
 
     /**
      * 2.删除一条充值记录

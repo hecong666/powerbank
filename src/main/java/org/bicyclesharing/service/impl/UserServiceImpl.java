@@ -127,16 +127,26 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	public boolean addUserAccountByUserId(double account, Integer uid) {
+	public boolean addUserAccountByUserId(BigDecimal account, String userName) {
 		// TODO Auto-generated method stub
-		double oldAccount = userDao.selectUserAcountByUserId(uid);
-		BigDecimal b1 = new BigDecimal(oldAccount);
-		BigDecimal b2 = new BigDecimal(account);
-		b1.add(b2);
-		int i = userDao.addUserAccountByUserId(b1.doubleValue(), uid);
+		User user = userDao.selectUserByName(userName);
+		
+		BigDecimal b1 = user.getUserAccount();
+		System.out.println(b1.doubleValue());
+		account = account.add(b1);
+		System.out.println(account.doubleValue());
+		int i = userDao.addUserAccountByUserId(account, userName);
 		if(i <= 0)
 		return false;
 		return true;
+	}
+
+	@Override
+	public boolean insertUser(User user) {
+		// TODO Auto-generated method stub
+		int i = userDao.insertUser(user);
+		if(i > 0 )return true;
+		return false;
 	}
 
 }

@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * 充值相关逻辑实现类
- * Created by HuiJa on 2017/7/28.
+ * 
  */
 @Service
 public class RechargeServiceImpl implements RechargeService {
@@ -20,14 +20,13 @@ public class RechargeServiceImpl implements RechargeService {
     private RechargeDao rechargeDao;
 
     @Override
-    public boolean addRecharge(Integer userId, BigDecimal rechargeAmount, BigDecimal remaining, Date rechargeTime) {
-        if ("".equals(userId) || "".equals(rechargeAmount) || "".equals(remaining) || "".equals(rechargeTime)) {
-            return false;
-        } else {
-            Recharge recharge = new Recharge(userId, rechargeAmount, remaining, rechargeTime);
+    public boolean addRecharge(Recharge recharge) {
+        
+       
+           
             rechargeDao.insertRecharge(recharge);
             return true;
-        }
+        
     }
 
     @Override

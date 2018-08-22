@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * 管理员高级操作验证拦截器,需要输入验证码
- * Created by HuiJa on 2017/7/24.
+ *
  */
 public class AdvancedOperationsInterceptor implements HandlerInterceptor {
     @Override

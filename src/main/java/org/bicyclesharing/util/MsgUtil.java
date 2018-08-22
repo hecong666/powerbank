@@ -25,12 +25,12 @@ public class MsgUtil {
 		// 签名
 		static String smsSign = "w9zy99"; 
 		
-		  public static void sendMsg(String number){
+		  public static void sendMsg(String number,String parem){
 		    	try {
 		    	    String[] params = {"5678","2"};
-		    	    params[0] = roundMsg();
+		    	    params[0] = parem;
 		    	    SmsSingleSender ssender = new SmsSingleSender(appid, appkey);
-		    	    SmsSingleSenderResult result = ssender.sendWithParam("86", phoneNumbers,
+		    	    SmsSingleSenderResult result = ssender.sendWithParam("86", number,
 		    	        templateId, params, smsSign, "", "");  // 签名参数未提供或者为空时，会使用默认签名发送短信
 		    	    System.out.println(result);
 		    	} catch (HTTPException e) {
@@ -51,12 +51,12 @@ public class MsgUtil {
 				}
 		    }
 		  //生成随机验证码
-		  private static String roundMsg(){
+		  public static String roundMsg(){
 				
 	String sources = "0123456789"; // 加上一些字母，就可以生成pc站的验证码了
 	Random rand = new Random();
 	StringBuffer flag = new StringBuffer();
-	for (int j = 0; j < 6; j++) 
+	for (int j = 0; j < 4; j++) 
 	{
 		flag.append(sources.charAt(rand.nextInt(9)) + "");
 	}

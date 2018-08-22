@@ -7,7 +7,7 @@ import java.util.Date;
 
 /**
  * 充值记录表
- * Created by HuiJa on 2017/7/26.
+ * 
  */
 public class Recharge {
     private Integer rechargeId;

@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>login.html</title>
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    <meta name="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet">
+	<link href="css/login.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<style type="text/css">
+body {
+	background-color: #f3f3f3;
+}
+.mian {
+	width: 100%;
+	height: 100%;
+}
+
+.top {
+	margin-top: 20px;
+}
+a {
+	color: #666;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 20px;
+	margin-left: 10px;
+}
+a:HOVER {
+	color: #666;
+	text-decoration: none;
+}
+</style>
+</head>
+  <body>
+   <div class="mian">
+		<div class="top">
+			<a href="javascript:history.back(-1)">返回</a>
+		</div>
+		<div class="modal_content">	
+  	 		<center><h1>登录</h1></center>	
+			<div>
+				<label for="phone1">手机号：</label><br />
+				<input id="phone1" type="text" autocomplete="off" placeholder="请输入已绑定的手机号"/>				
+			</div> 
+			<div>
+				<label for="code1">验证码：</label>
+				<div class="code1">
+					<input id="code1" type="text" autocomplete="off" placeholder="短信验证码"/>				
+					<input id="btnSendCode1" type="button" class="btn btn-default" value="获取验证码" onClick="sendMessage1()" />
+				</div>				
+			</div> 	
+			<div class="next">  			
+				<button onClick="binding()">确定</button>
+			</div>
+		</div>	
+   </div>
+  </body>
+  <script type="text/javascript">
+			var phoneReg = /(^1[3|4|5|7|8]\d{9}$)|(^09\d{8}$)/;//手机号正则 
+			var count = 60; //间隔函数，1秒执行
+			var InterValObj1; //timer变量，控制时间
+			var curCount1;//当前剩余秒数
+			/*第一*/
+			function sendMessage1() {
+				curCount1 = count;		 		 
+				var phone = $.trim($('#phone1').val());
+				if (!phoneReg.test(phone)) {
+					alert(" 请输入有效的手机号码"); 
+					return false;
+				}else{
+				$.ajax({
+						type:"get",
+	        			url:"../sendMsg",
+	        			dataType:"json",
+	        			data:{"phoneNumber":phone}	
+					});
+				}
+				//设置button效果，开始计时
+				$("#btnSendCode1").attr("disabled", "true");
+				$("#btnSendCode1").val( + curCount1 + "秒再获取");
+				InterValObj1 = window.setInterval(SetRemainTime1, 1000); //启动计时器，1秒执行一次
+				//向后台发送处理数据
+					 
+			}
+			function SetRemainTime1() {
+				if (curCount1 == 0) {                
+					window.clearInterval(InterValObj1);//停止计时器
+					$("#btnSendCode1").removeAttr("disabled");//启用按钮
+					$("#btnSendCode1").val("重新发送");
+				}
+				else {
+					curCount1--;
+					$("#btnSendCode1").val( + curCount1 + "秒再获取");
+				}
+			} 
+			
+			/*提交*/
+			function binding(){
+				var phone = $.trim($('#phone1').val());
+				var code =$("#code1").val();
+				if (!phoneReg.test(phone)) {
+					alert(" 请输入有效的手机号码"); 
+					return false;
+				}else{
+					$.ajax({
+						type:"post",
+	        			url:"../api-user-login",
+	        			dataType:"json",
+	        			data:{"userName":phone,"Scode":code},
+	        			success: function (data)
+        		        {
+        					if(data.code == 1){
+        						location.href="../forWard?userName=" + phone;
+        					}else if(data.code == -1){
+        					alert(data.msg);
+        		        }else{
+        		        	alert(data.msg);
+        		        }
+        		        	}
+					});
+				}
+			}
+		</script>
+</html>

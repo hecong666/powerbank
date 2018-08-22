@@ -13,7 +13,7 @@
     <!-- logo -->
     <div class="am-fl tpl-header-logo">
         <img src="${pageContext.request.contextPath }/assets/img/index-logo.png" style="width:30px; height: 30px; float: left; margin-top:14px; margin-left: 15px;">
-       	<div style="color: #cfcfcf; line-height: 57px; margin-left:5px; font-weight:bold; float: left;">WOFI单车后台管理</div>
+       	<div style="color: #cfcfcf; line-height: 57px; margin-left:5px; font-weight:bold; float: left;">共享充电宝后台管理</div>
     </div>
     <!-- 右侧内容 -->
     <div class="tpl-header-fluid">

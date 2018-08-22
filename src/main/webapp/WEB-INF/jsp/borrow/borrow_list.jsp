@@ -56,11 +56,7 @@
                                                 <th>单车编号</th>
                                                 <th>用户编号</th>
                                                 <th>租借时间</th>
-                                                <th>归还时间时间</th>
-                                                <th>开始经度</th>
-                                                <th>开始纬度</th>
-                                                <th>结束经度</th>
-                                                <th>结束纬度</th>
+                                                <th>归还时间时间</th>                                              
                                                 <th>花费</th>
                                                 <th>余额</th>
                                                 <th>操作</th>
@@ -70,18 +66,14 @@
                                         <c:forEach items="${requestScope.pageBorrows }" var="borrows">
                                             <tr class="gradeX">
                                                 <td class="am-text-middle">${borrows.borrowId }</td>
-                                                <td class="am-text-middle">${borrows.bicycleId }</td>
+                                                <td class="am-text-middle">${borrows.pid }</td>
                                                 <td class="am-text-middle">${borrows.userId}</td>
                                                 <td class="am-text-middle">
                                                 	<fmt:formatDate value="${borrows.borrowStartTime }" type="both"/>
                                                 </td>
                                                 <td class="am-text-middle">
                                                 	<fmt:formatDate value="${borrows.borrowEndTime }" type="both"/>
-                                                </td>
-                                                <td class="am-text-middle">${borrows.borrowStartX}</td>
-                                                <td class="am-text-middle">${borrows.borrowStartY}</td>
-                                                <td class="am-text-middle">${borrows.borrowEndX}</td>
-                                                <td class="am-text-middle">${borrows.borrowEndY}</td>
+                                                </td>                                             
                                                 <td class="am-text-middle">${borrows.cost}</td>
                                                 <td class="am-text-middle">${borrows.remaining}</td>
                                                 <td class="am-text-middle">

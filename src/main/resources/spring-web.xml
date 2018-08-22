@@ -51,4 +51,14 @@ http://www.springframework.org/schema/beans/spring-beans.xsd     http://www.spri
             <bean class="org.bicyclesharing.interceptor.AdvancedOperationsInterceptor"></bean>
         </mvc:interceptor>
     </mvc:interceptors>
+    <mvc:interceptors>
+    	<mvc:interceptor>
+    		 <mvc:mapping path="/admin-admin-*"/>
+            <mvc:exclude-mapping path="/api-user-recharge"/>
+            <mvc:exclude-mapping path="/api-borrow-returnBicycle"/>
+             <mvc:exclude-mapping path="/api-borrow-borrowBicycle"/>
+            <bean class="org.bicyclesharing.interceptor.UserInterceptor"></bean>
+    	</mvc:interceptor>
+    </mvc:interceptors>
+	
 </beans>

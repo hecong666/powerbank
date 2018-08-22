@@ -1,0 +1,221 @@
+html,body {
+    color: #333;
+    margin: 0;
+    height: 100%;
+    font-family: "Myriad Set Pro","Helvetica Neue",Helvetica,Arial,Verdana,sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: normal;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+a, label, button, input, select {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+    background: #efeff2;
+    color: #666;
+}
+
+html, body, div, dl, dt, dd, ol, ul, li, h1, h2, h3, h4, h5, h6, p, blockquote, pre, button, fieldset, form, input, legend, textarea, th, td {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #08acee;
+}
+
+button {
+    outline: 0;
+}
+
+button,input,optgroup,select,textarea {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    outline: none;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    color: #666;
+}
+
+.aui-flexView {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.aui-scrollView {
+    width: 100%;
+    height: 100%;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+}
+
+.aui-recharge-box {
+    margin-top: 15px;
+    padding: 20px 15px;
+    position: relative;
+    overflow: hidden;
+    background: #efeff2;
+}
+
+.aui-recharge-iphone {
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.aui-well-bd {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    min-width: 0;
+}
+
+.aui-well-bd p input {
+    width: 100%;
+    padding: 4px 0;
+    padding-bottom:0;
+    font-size: 1.5rem;
+    border: none;
+    background: none;
+}
+
+.aui-well-bd p {
+    color: #333;
+    font-size: 0.8rem;
+}
+
+.aui-well-bd p em {
+    font-style: normal;
+}
+
+.aui-recharge-iphone::after {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px solid #B2B2B2;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+    -webkit-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+}
+
+.aui-cell-box h3 {
+    height: 40px;
+    line-height: 40px;
+    color: #999999;
+    font-size: 0.85rem;
+    font-weight: normal;
+}
+
+.aui-grids {
+    position: relative;
+    overflow: hidden;
+}
+
+.aui-grids-item {
+    width: 30.33333%;
+    float: left;
+    position: relative;
+    z-index: 0;
+    padding: 0.7rem 0;
+    font-size: 0.28rem;
+    border: 1px solid #50b56a;
+    border-radius: 5px;
+    color: #50b56a;
+    text-align: center;
+    margin-right: 4%;
+    margin-bottom: 10px;
+    height: 85px;
+}
+
+.aui-grids-item span {
+    font-size: 1.6rem;
+    width: 100%;
+    display: block;
+}
+
+.aui-grids-item .aui-grids-item-text {
+    font-size: 0.8rem;
+    color: #95d2a5;
+}
+
+.aui-grids a:nth-child(3) {
+    margin-right: 0;
+}
+
+.aui-grids a:nth-child(6) {
+    margin-right: 0;
+}
+
+.aui-grids-item .aui-height {
+    height: 85px;
+    line-height: 64px;
+    font-size: 1rem;
+}
+
+.this-card {
+    background: #50b56a;
+    border: 1px solid #50b56a;
+    color: #fff;
+}
+
+.next {
+	text-align: center;
+	margin: 20px 0;
+}
+.next button {
+	width: 90%;
+	height: 45px;
+	padding: 0;
+ 	margin: 0;
+ 	background: #007BFF;
+	color: #fff;
+  	border: 0;
+ 	outline: none;	
+	border-radius: 3px;
+}

@@ -3,8 +3,8 @@
 <mapper namespace="org.bicyclesharing.dao.UserDao">
     <!--1.插入一个用户-->
     <insert id="insertUser" parameterType="User">
-        INSERT INTO user (user_id, user_name, user_account, user_credit, user_cash)
-        VALUES (#{userId}, #{userName}, #{userAccount}, #{userCredit}, #{userCash})
+        INSERT INTO user (user_name, user_account, user_credit, user_cash)
+        VALUES (#{userName}, #{userAccount}, #{userCredit}, #{userCash})
     </insert>
     <!--2.按照id删除一个用户-->
     <delete id="deleteUser" parameterType="Integer">
@@ -62,7 +62,7 @@
     <select id="selectUserAcountByUserId">
         select user_account from user where user_id = #{uid}
     </select>
-    <update id="addUserAccountByUserId" parameterType="Double">
-    	update set user_account = #{account} from user where user_id = #{uid}
+    <update id="addUserAccountByUserId">
+    	update user set user_account = #{account} where user_name = #{userName}
     </update>
 </mapper>

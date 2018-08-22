@@ -1,13 +1,20 @@
 package org.bicyclesharing.entities;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
  * 用户实体类
  * Created by HuiJa on 2017/7/26.
  */
-public class User {
-    private Integer userId;
+public class User implements Serializable{
+	
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private Integer userId;
     //用户名,手机号
     private String userName;
     //余额

@@ -17,7 +17,7 @@ public interface BorrowDao {
      *
      * @param borrow
      */
-    void insertBorrow(Borrow borrow);
+    int insertBorrow(Borrow borrow);
 
     /**
      * 2.按id删除一条租借记录

@@ -3,9 +3,8 @@
 <mapper namespace="org.bicyclesharing.dao.BorrowDao">
     <!--1.插入一条租借记录-->
     <insert id="insertBorrow" parameterType="Borrow">
-        INSERT INTO borrow (borrow_id, bicycle_id, user_id, borrow_start_time, borrow_end_time, borrow_start_x, borrow_start_y, borrow_end_x, borrow_end_y, cost, remaining)
-        VALUES (#{borrowId}, #{bicycleId}, #{userId}, #{borrowStartTime}, #{borrowEndTime}, #{borrowStartX},
-                             #{borrowStartY}, #{borrowEndX}, #{borrowEndY}, #{cost}, #{remaining})
+        INSERT INTO borrow ( pid, user_id, borrow_start_time, borrow_end_time, cost, remaining)
+        VALUES (#{pid}, #{userId}, #{borrowStartTime}, #{borrowEndTime}, #{cost}, #{remaining})
     </insert>
     <!--2.根据Id删除一条借车记录-->
     <delete id="deleteBorrow" parameterType="Integer">

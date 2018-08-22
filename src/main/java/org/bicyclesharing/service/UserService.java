@@ -94,5 +94,7 @@ public interface UserService {
     /**
      * 充值用户余额
      * */
-    boolean addUserAccountByUserId(double account,Integer uid);
+    boolean addUserAccountByUserId(BigDecimal account,String userName);
+    
+    boolean insertUser(User user);
 }

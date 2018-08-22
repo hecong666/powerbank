@@ -22,7 +22,7 @@
             <div class="tpl-login-content">
             	<div>
             		<img src="assets/img/index-logo.png" style="width:30px; height: 30px; float: left; margin-top:14px; margin-left: 15px; margin-right: 10px;">
-            		<p style="font-size:24px; color: #cfcfcf; line-height: 2.4em;">WOFI单车后台管理</p>
+            		<p style="font-size:24px; color: #cfcfcf; line-height: 2.4em;">充电宝后台管理</p>
             	</div>
             	<c:if test="${requestScope.adminLoginError == 1 }">
             		<span style="color:#f44336;">用户名或密码输入有误!请检查后重新输入</span>

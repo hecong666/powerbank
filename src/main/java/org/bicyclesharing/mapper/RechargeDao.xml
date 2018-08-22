@@ -3,8 +3,8 @@
 <mapper namespace="org.bicyclesharing.dao.RechargeDao">
     <!--1.插入一条充值记录-->
     <insert id="insertRecharge" parameterType="Recharge">
-        INSERT INTO recharge (recharge_id, user_id, recharge_amount, remaining, recharge_time)
-        VALUES (#{rechargeId}, #{userId}, #{rechargeAmount}, #{remaining}, #{rechargeTime})
+        INSERT INTO recharge ( user_id, recharge_amount, remaining, recharge_time)
+        VALUES ( #{userId}, #{rechargeAmount}, #{remaining}, #{rechargeTime})
     </insert>
     <!--2.按id删除一条充值记录-->
     <delete id="deleteRecharge" parameterType="Integer">

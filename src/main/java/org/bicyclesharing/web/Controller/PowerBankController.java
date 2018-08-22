@@ -44,10 +44,16 @@ public class PowerBankController {
         ArrayList<PowerBank> powerBanks = (ArrayList<PowerBank>) redisTemplate.opsForValue().get("powerBanks");
         	System.out.println((ArrayList<PowerBank>) redisTemplate.opsForValue().get("powerBanks"));
         if(powerBanks == null){
-        powerBanks = (ArrayList<PowerBank>) powerbankService.selectAll();
-       
+        powerBanks = (ArrayList<PowerBank>) powerbankService.selectAll();    
         redisTemplate.opsForValue().set("powerBanks", powerBanks);
         	}
+        for (PowerBank powerBank : powerBanks) {
+        	PowerBank p = (PowerBank) redisTemplate.opsForValue().get(powerBank.getPid() + "");
+        	if(p != null){
+        		powerBanks.remove(powerBank);
+        		powerBanks.add(p);
+        	}
+		}
         	requestMap.put("powerBanks", powerBanks);
         int pageCount = powerBanks.size();  //数据条数
         int pageSize = 20;  //分页条数

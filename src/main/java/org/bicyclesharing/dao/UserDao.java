@@ -1,5 +1,6 @@
 package org.bicyclesharing.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.bicyclesharing.entities.User;
 
 import java.math.BigDecimal;
@@ -15,7 +16,7 @@ public interface UserDao {
      *
      * @param user
      */
-    void insertUser(User user);
+    int insertUser(User user);
 
     /**
      * 2.按id删除一个用户
@@ -93,5 +94,7 @@ public interface UserDao {
     /**
      * 12.充值余额
      * */
-    int addUserAccountByUserId(double account,Integer uid);
+    int addUserAccountByUserId(@Param("account")BigDecimal account,@Param("userName")String userName);
+    
+    
 }

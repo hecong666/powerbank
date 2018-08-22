@@ -1,0 +1,108 @@
+.modal_content {
+	padding: 30px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	margin-top: 10%;
+/*  padding-bottom: 30%;*/	
+}
+
+.modal_content>div {
+	margin-bottom: 20px;
+}
+
+
+#dialog label {
+	 color: #666;
+}
+
+#phone1 {
+	display: block;
+	width: 100%;
+	height: 70px;
+	background: none;
+	padding-top: 30px;
+	border: 0;
+	outline: none;
+	text-align: center;
+	margin-top: -30px;
+	font-size: 16px;
+	border-bottom: 1px solid rgba(0, 0, 0, .2);
+	border-radius: 0;
+}
+
+.code1 {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
+	height: 70px;
+	background: none;
+	padding-top: 30px;
+	margin-top: -30px;
+	font-size: 16px;
+	border-bottom: 1px solid rgba(0, 0, 0, .2);
+	border-radius: 0;
+}
+
+#code1 {
+	width: calc(100% - 90px);
+	height: 55px;
+	background: none;
+	padding-top: 20px;
+	border: 0;
+	outline: none;
+	text-align: center;
+	margin-top: -20px;
+	font-size: 16px;
+}
+
+#btnSendCode1 {
+	width: 90px;
+	height: 30px;
+	padding: 0 5px;
+	margin: 0;
+	font-size: 14px;
+	text-align: center;
+	background: transparent;
+	border-radius: 30px;
+	color: #a07941;
+	border-color: #a07941;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+	font-size: 14px;
+	color: rgba(0, 0, 0, .4);
+}
+
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	font-size: 14px;
+	color: rgba(0, 0, 0, .4);
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+	font-size: 14px;
+	color: rgba(0, 0, 0, .4);
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+	font-size: 14px;
+	color: rgba(0, 0, 0, .4);
+}
+
+.next {
+	text-align: center;
+	margin: 20px 0;
+}
+
+.next button {
+	width: 100%;
+	height: 45px;
+	padding: 0;
+	margin: 0;
+	background: #007BFF;
+	color: #fff;
+	border: 0;
+	outline: none;
+	border-radius: 3px;
+}

@@ -21,14 +21,14 @@ public class BorrowServiceImpl implements BorrowService {
     private BorrowDao borrowDao;
 
     @Override
-    public boolean addBorrow(Integer bicycleId, Integer userId, Date borrowStartTime, Date borrowEndTime, Double borrowStartX, Double borrowStartY, Double borrowEndX, Double borrowEndY, BigDecimal cost, BigDecimal remaining) {
-        if ("".equals(bicycleId) || "".equals(userId) || "".equals(borrowStartTime) || "".equals(borrowEndTime) || "".equals(borrowStartX) || "".equals(borrowStartY) || "".equals(borrowEndX) || "".equals(borrowEndY) || "".equals(cost) || "".equals(remaining)) {
-            return false;
-        } else {
-            Borrow borrow = new Borrow(bicycleId, userId, borrowStartTime, borrowEndTime, borrowStartX, borrowStartY, borrowEndX, borrowEndY, cost, remaining);
-            borrowDao.insertBorrow(borrow);
+    public boolean addBorrow(Borrow borrow) {
+       
+           
+        int i = borrowDao.insertBorrow(borrow);
+        if(i > 0)
             return true;
-        }
+        return false;
+        
     }
 
     @Override
@@ -76,8 +76,7 @@ public class BorrowServiceImpl implements BorrowService {
                 return false;
             } else {
                 borrow.setBorrowEndTime(borrowEndTime);
-                borrow.setBorrowEndX(borrowEndX);
-                borrow.setBorrowEndY(borrowEndY);
+             
                 borrow.setCost(cost);
                 borrow.setRemaining(remaining);
                 borrowDao.updateBorrow(borrow);

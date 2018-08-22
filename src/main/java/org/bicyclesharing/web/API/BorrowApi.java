@@ -1,21 +1,30 @@
 package org.bicyclesharing.web.API;
 
 
-import org.bicyclesharing.entities.Bicycle;
+import java.math.BigDecimal;
+import java.security.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+import javax.servlet.http.HttpSession;
+
 import org.bicyclesharing.entities.Borrow;
+import org.bicyclesharing.entities.PowerBank;
 import org.bicyclesharing.entities.User;
 import org.bicyclesharing.service.BicycleService;
 import org.bicyclesharing.service.BorrowService;
+import org.bicyclesharing.service.PowerBankService;
 import org.bicyclesharing.service.UserService;
+import org.bicyclesharing.util.UpdateDumpEnergy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * 借车相关api
@@ -29,69 +38,125 @@ public class BorrowApi {
     UserService userService;
     @Autowired
     BicycleService bicycleService;
-
-
+    @Autowired
+    private RedisTemplate<String, Object> redis;
+    @Autowired
+    private PowerBankService powerbankService;
     /**
      * 1.借车开始api,修改单车状况
      */
-    @RequestMapping(value = "api-borrow-borrowBicycle/{bicycleId}/{userName}")
-    @ResponseBody
-    public String borrowBicycle(@PathVariable("bicycleId") Integer bicycleId, @PathVariable("userName") String userName) {
+    @RequestMapping(value = "api-borrow-borrowBicycle")   
+    public String borrowBicycle(@RequestParam("pid") Integer pid, @RequestParam("userName") String userName,HttpSession session) {
         User user = userService.getUserByName(userName);
-        Bicycle bicycle = bicycleService.getBicycleById(bicycleId);
-        if (user == null || bicycle == null) {
+        PowerBank pb = (PowerBank) redis.opsForValue().get(String.valueOf(pid));
+        if (user == null || pb == null) {
             //-1表示找不到该车或者该用户不存在
-            return "-1";
+            return "customer/error1";
         } else {
-            if (bicycle.getBicycleStatement() == 1 || bicycle.getBicycleStatement() == -1) {
-                if (user.getUserCash() == 199) {
-                    //添加借车记录(车id,用户名,当前时间,开始地址)
-                    borrowService.addBorrow(bicycleId, userService.getUserByName(userName).getUserId(), new Date(), new Date(), bicycle.getBicycleCurrentX(), bicycle.getBicycleCurrentY(), bicycle.getBicycleCurrentX(), bicycle.getBicycleCurrentY(), new BigDecimal(0), user.getUserAccount());
-                    //修改单车状况
-                    bicycle.setBicycleStatement(0);
-                    bicycleService.editBicycyle(bicycleId, bicycle.getBicycleCurrentX(), bicycle.getBicycleCurrentY(), bicycle.getBicycleLastTime(), bicycle.getBicycleStatement());
-                    return "1";
-                } else return "-2";//未交押金
-            } else {
-                return "0";//该车正在使用中
+            if (pb.getStatement() == 0) {
+            		Borrow borrow = new Borrow();
+            		borrow.setPid(pid);
+            		Date date = new Date();
+            		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            		String strd = sd.format(date);
+            		borrow.setBorrowStartTime(date);
+            		borrow.setUser(userService.getUserByName(userName));
+            		borrow.setUserId(userService.getUserByName(userName).getUserId());
+                    //添加借充电宝记录(车id,用户名,当前时间,开始地址)
+                
+                    //修改充电宝状况
+                   pb.setStatement(1);
+                   redis.opsForValue().set(String.valueOf(pid), pb);
+                   session.setAttribute("startTime", strd);
+                   redis.opsForValue().set("borrow:" + userName , borrow);
+                   int energy = pb.getDumpEnergy();
+                   session.setAttribute("time",energy / 10);
+                    return "customer/userShow";
+                
+            } else if(pb.getStatement() == 1){
+            	 int energy = pb.getDumpEnergy();
+                 session.setAttribute("time",energy / 10);
+                 return "customer/userShow";
+               //该充电宝正在使用中
+            }else{
+            return "customer/error1";
             }
         }
-
-
     }
-
+    @RequestMapping("updateState")
+    public String updateState(@RequestParam("pid")int pid,HttpSession session){
+    	
+    	PowerBank p = (PowerBank) redis.opsForValue().get(String.valueOf(pid));
+    	if(p == null){
+    		p = powerbankService.selectPowerBankById(pid);
+    		redis.opsForValue().set(String.valueOf(pid), p);
+    	}
+    	int i = p.getStatement();
+    	if(i == 0){//待使用
+    	p.setStatement(-1);
+    	redis.opsForValue().set(String.valueOf(pid), p);
+    	
+    	return "customer/error1";
+    	}else if(i == -1){//未扫描
+    		p.setStatement(0);
+        	redis.opsForValue().set(String.valueOf(pid), p);
+        	session.setAttribute("powerbank", p);
+        	return "customer/index";
+    	}else if(i == 1){//使用中
+    		return "customer/error1";
+    	}else if(i == -2){//电量为0
+    		return "customer/error1";
+    	}
+    	return "customer/error1";
+    }
     /**
      * 2.借车结束相关api,添加借车记录,修改用户余额,修改单车状况为1(还有地址)
      *
      * @return
      */
-    @RequestMapping(value = "api-borrow-returnBicycle/{bicycleId}/{userName}/{ex}/{ey}/{cost}/end")
-    @ResponseBody
-    public String returnBicycle(@PathVariable("bicycleId") Integer bicycleId, @PathVariable("userName") String userName,
-                                @PathVariable("ex") double ex, @PathVariable("ey") double ey,
-                                @PathVariable("cost") double cost) {
+    @RequestMapping(value = "api-borrow-returnBicycle")
+    @Transactional
+    public String returnBicycle(@RequestParam("pid") Integer pid, @RequestParam("userName") String userName,HttpSession session) {
         User user = userService.getUserByName(userName);
-        if (user == null) {
+        Date date = new Date();
+        PowerBank pb = (PowerBank) redis.opsForValue().get(String.valueOf(pid));
+        Borrow b = (Borrow) redis.opsForValue().get("borrow:" + userName);
+        if (user == null || pb == null) {
             return "-1";//用户不存在
         } else {
-            if (user.getUserAccount().subtract(new BigDecimal(cost)).compareTo(new BigDecimal(0)) < 0) {
-                return "0";//用户余额不足,请充值后还车
-            } else { //用户的余额减少
+        double times = 	UpdateDumpEnergy.update(b.getBorrowStartTime(), date);
+        int energy = (int) Math.round(times * 10);
+       
+        	double money = Math.ceil(times * 2);
+            //用户的余额减少
                 BigDecimal remaining = user.getUserAccount();
-                user.setUserAccount(remaining.subtract(new BigDecimal(cost)));
-                userService.editUser(user.getUserName(), user.getUserAccount(), user.getUserCredit(), user.getUserCash());
+                user.setUserAccount(remaining.subtract(new BigDecimal(money)));
+                userService.addUserAccountByUserId(user.getUserAccount(), userName);
                 //完善租借记录
-                borrowService.editBorrow(bicycleId, new Date(), ex, ey, new BigDecimal(cost), remaining.subtract(new BigDecimal(cost)));
-                //修改车辆状况(最终归还时间地点)
-                bicycleService.editBicycyle(bicycleId, ex, ey, new Date(), 1);
-                return "1";
-            }
+            b.setCost(new BigDecimal(money));
+            b.setRemaining(user.getUserAccount());
+               b.setBorrowEndTime(date);
+               if(pb.getDumpEnergy() <= energy){
+               	pb.setDumpEnergy(0);   
+               	pb.setStatement(-2);
+               }else{
+               	pb.setDumpEnergy(pb.getDumpEnergy() - energy); 
+               	pb.setStatement(-1);
+               }
+               pb.setLastTime(date);
+               redis.opsForValue().set(String.valueOf(pid), pb);
+               borrowService.addBorrow(b);
+                redis.delete("borrow:" + userName);
+                redis.delete("user:" + userName);
+                session.invalidate();
+                return "customer/success";
+            
         }
 
     }
 
     /**
-     * 3.查询当前(最后一条)借车记录api(真的蠢,当初为什么要根据车id查询最后一条记录)
+     * 3.查询当前(最后一条)借车记录api
      */
     @RequestMapping(value = "api-borrow-currentBorrow/{userName}")
     @ResponseBody

@@ -130,8 +130,9 @@ public class BorrowApi {
         	double money = Math.ceil(times * 2);
             //用户的余额减少
                 BigDecimal remaining = user.getUserAccount();
-                user.setUserAccount(remaining.subtract(new BigDecimal(money)));
-                userService.addUserAccountByUserId(user.getUserAccount(), userName);
+           //     user.setUserAccount(remaining.subtract(new BigDecimal(money)));
+                BigDecimal subMoney = new BigDecimal(-money);
+                userService.addUserAccountByUserId(subMoney, userName);
                 //完善租借记录
             b.setCost(new BigDecimal(money));
             b.setRemaining(user.getUserAccount());
